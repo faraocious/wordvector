@@ -10,7 +10,11 @@ class Wordvector(dict) :
         'you', 'that', 'he', 'was', 'for', 'on', 'are', 'with', 
         'as', 'i', 'can', 'they', 'be', 'at', 'one', 'have', 'this', 
         'from', 'or', 'had', 'by', 'but', 'some', 'what', 'there', 'we', 
-        'can', 'out', 'other', 'were', 'all', 'your', 'when', 'up', 'use']
+        'can', 'out', 'other', 'were', 'all', 'your', 'when', 'up', 'use', 'word',
+        'how', 'said', 'an', 'she', 'which', 'do', 'their', 'time', 'if', 'will', 
+        'way', 'about', 'many', 'then', 'them', 'would', 'write', 'like', 'so',
+        'these', 'her', 'long', 'make', 'thing', 'him', 'see', 'two', 
+        'has', 'look', 'more']
 
     def __init__(self) :
         dict.__init__(self)
@@ -39,7 +43,8 @@ class Wordvector(dict) :
     def get_key_name(raw) :
         ''' get a unique key name for the vector for any given word. '''
         raw, num_replaces = re.subn(r'[^\w]+', '_', raw)
-        return raw.lower()
+        stripped = raw.strip('_')
+        return stripped.lower()
 
     @classmethod
     def get_comparable(cls, v1, v2) :
@@ -154,7 +159,6 @@ class Wordvector(dict) :
     
     def mul(self, v) :
         ''' Itemwise multiplication. '''
-        self.is_comparable(v)
         return Wordvector.by_dict(dict(
            (word, self.get(word, 0) * v.get(word, 0)) 
             for word in self.keys() + v.keys()))
